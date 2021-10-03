@@ -45,7 +45,7 @@ export default async function onVoiceStateUpdate (oldState: VoiceState, newState
     if (many < 1 && isHere) lavalink.stop(oldState.channel)
 
     const brewing = db.getBrew(newState.guild.id)
-    if (!brewing || brewing.channelId === oldState.channelId) return
+    if (!brewing || brewing.channelId === newState.channelId) return
 
     const isHere2 = newState.guild.me?.voice.channel === newState.channel
     if (isHere2) return
