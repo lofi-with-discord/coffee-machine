@@ -1,9 +1,8 @@
 import { yellow } from 'chalk'
 import { VoiceState } from 'discord.js'
-import DatabaseClient from '../classes/DatabaseClient'
-import LavalinkClient from '../classes/LavalinkClient'
+import { db, lavalink } from '..'
 
-export default async function onVoiceStateUpdate (oldState: VoiceState, newState: VoiceState, lavalink: LavalinkClient, db: DatabaseClient) {
+export default async function onVoiceStateUpdate (oldState: VoiceState, newState: VoiceState) {
   if (oldState.member?.user.bot) return
   if (newState.member?.user.bot) return
 
