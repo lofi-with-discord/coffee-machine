@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 
 import BotClient from './classes/BotClient'
+import RestServer from './classes/RestServer'
 import DatabaseClient from './classes/DatabaseClient'
 import LavalinkClient from './classes/LavalinkClient'
 
@@ -10,10 +11,13 @@ import onInteractionCreate from './events/onInteractionCreate'
 
 dotenv.config()
 
-const db = new DatabaseClient()
-const client = new BotClient()
-const lavalink = new LavalinkClient(client)
+export const db = new DatabaseClient()
+export const client = new BotClient()
+export const lavalink = new LavalinkClient()
 
-client.onEvent('ready', onReady, lavalink, db)
+// eslint-disable-next-line no-new
+new RestServer()
+
+client.onEvent('ready', onReady)
 client.onEvent('interactionCreate', onInteractionCreate)
-client.onEvent('voiceStateUpdate', onVoiceStateUpdate, lavalink, db)
+client.onEvent('voiceStateUpdate', onVoiceStateUpdate)

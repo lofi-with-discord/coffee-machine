@@ -1,9 +1,8 @@
 import { yellow } from 'chalk'
 import { VoiceState } from 'discord.js'
-import DatabaseClient from '../classes/DatabaseClient'
-import LavalinkClient from '../classes/LavalinkClient'
+import { db, lavalink } from '..'
 
-export default async function onVoiceStateUpdate (oldState: VoiceState, newState: VoiceState, lavalink: LavalinkClient, db: DatabaseClient) {
+export default async function onVoiceStateUpdate (oldState: VoiceState, newState: VoiceState) {
   if (oldState.member?.user.bot) return
   if (newState.member?.user.bot) return
 
@@ -45,7 +44,7 @@ export default async function onVoiceStateUpdate (oldState: VoiceState, newState
     if (many < 1 && isHere) lavalink.stop(oldState.channel)
 
     const brewing = db.getBrew(newState.guild.id)
-    if (!brewing || brewing.channelId === oldState.channelId) return
+    if (!brewing || brewing.channelId === newState.channelId) return
 
     const isHere2 = newState.guild.me?.voice.channel === newState.channel
     if (isHere2) return

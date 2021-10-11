@@ -30,9 +30,13 @@ export default class DatabaseClient {
     this.cacheBrews()
   }
 
-  private async cacheBrews () {
+  public async cacheBrews () {
     const brews = await this.db.select('*').from('brews')
-    brews.forEach(brew => this.brewCache.set(brew.guildId, brew))
+
+    this.brewCache.clear()
+    for (const brew of brews) {
+      this.brewCache.set(brew.guildId, brew)
+    }
   }
 
   public getBrew = (guildId: string) =>

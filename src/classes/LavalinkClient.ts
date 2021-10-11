@@ -1,13 +1,13 @@
+import { client } from '..'
 import { magenta, yellow } from 'chalk'
 import { get } from 'superagent'
-import BotClient from './BotClient'
 import { Manager } from '@lavacord/discord.js'
 import { StageChannel, VoiceChannel } from 'discord.js'
 
 export default class LavalinkClient extends Manager {
   private trackCache: { [search: string]: string }
 
-  constructor (client: BotClient) {
+  constructor () {
     const nodeConfig = {
       id: 'main',
       host: process.env.LAVALINK_HOST || 'localhost',
