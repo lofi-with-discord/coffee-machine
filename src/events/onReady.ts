@@ -16,6 +16,9 @@ export default async function onReady (client: BotClient, lavalink: LavalinkClie
   await lavalink.connect()
   console.log(green('Ready'), '-', 'lavalink')
 
+  lavalink.on('ready', replayCrashedTracks(client, lavalink, db))
+  replayCrashedTracks(client, lavalink, db)()
+  
   if (process.env.TEST_REFRESH_COMMANDS !== 'true') return
 
   const commandMetas = Object.values(commands)
@@ -25,9 +28,6 @@ export default async function onReady (client: BotClient, lavalink: LavalinkClie
   else await client.application?.commands.set(commandMetas, process.env.TEST_GUILD_ID)
 
   console.log(cyan('Registed'), '-', commandMetas.length, 'commands')
-
-  lavalink.on('ready', replayCrashedTracks(client, lavalink, db))
-  replayCrashedTracks(client, lavalink, db)()
 }
 
 function replayCrashedTracks (client: BotClient, lavalink: LavalinkClient, db: DatabaseClient) {
