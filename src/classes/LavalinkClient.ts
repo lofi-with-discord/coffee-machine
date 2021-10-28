@@ -47,7 +47,7 @@ export default class LavalinkClient extends Manager {
       await player.play(track)
 
       player.once('end', (data) => data.reason === 'FINISHED' && (console.log(yellow('\tReplaying'), channel.id)! || this.play(channel, track)))
-    }, 100)
+    }, 1000)
   }
 
   public stop (channel: VoiceChannel | StageChannel) {
